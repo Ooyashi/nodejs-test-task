@@ -17,6 +17,4 @@ userRouter.post('/register', registerUser);
 
 userRouter.get('/', getUser);
 
-userRouter.get('/get_all_rooms', getAllRooms);
-
 module.exports = userRouter;

@@ -15,6 +15,8 @@ const userSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+userSchema.index({ email: 1 }, { unique: true });
+
 userSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
@@ -29,6 +31,7 @@ userSchema.set('toObject', {
   transform(_doc, ret) {
     ret.id = ret._id;
     delete ret._id;
+    delete ret.password;
   },
 });
 

@@ -47,6 +47,8 @@ const roomSchema = new mongoose.Schema(
   { versionKey: false }
 );
 
+roomSchema.index({ roomNumber: 1 }, { unique: true });
+
 roomSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,

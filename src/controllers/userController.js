@@ -1,4 +1,4 @@
-const { verifyJwtToken } = require('../utils/jwt');
+const { verifyJwtToken, getAccessToken } = require('../utils/jwt');
 const {
   validateObject,
   validationSchemas,
@@ -39,22 +39,9 @@ const updateToken = async (token) => {
 };
 
 const getUser = async (req, res) => {
-  const accessToken = req.headers.authorization.split(' ')[1];
+  const accessToken = getAccessToken(req.headers.authorization);
   const user = await userService.getUser(accessToken);
   res.json(user);
-};
-
-const getAllRooms = async (req, res) => {
-  if (!req.headers.authorization) {
-    res.status(403).send('You are not authorized.');
-  }
-
-  const accessToken = req.headers.authorization.split(' ')[1];
-  const user = await userService.getUser(accessToken);
-
-  const rooms = await userService.getAllRooms(req.body);
-
-  res.json({ userId: user.id, rooms });
 };
 
 module.exports = {
@@ -63,5 +50,4 @@ module.exports = {
   getUser,
   updateToken,
   token,
-  getAllRooms,
 };
